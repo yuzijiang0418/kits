@@ -48,3 +48,15 @@ kits.getId = function(){
   let id = time + '' + r;
   return id;
 }
+
+// 5. 获取随机颜色
+kits.randomColor = function(){
+  //获取n-m之间的随机整数
+function random(n,m){
+return Math.floor(Math.random() * (m - n + 1) + n);
+}
+var a = random(0,255);
+var b = random(0,255);
+var c = random(0,255);
+return 'rgb('+ a + ',' + b + ',' + c + ')';
+}
