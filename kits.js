@@ -60,3 +60,42 @@ var b = random(0,255);
 var c = random(0,255);
 return 'rgb('+ a + ',' + b + ',' + c + ')';
 }
+
+// 6. 关于本地存储:获取数据/存储数据/修改数据
+//存储数据
+kits.saveLocalDataArray = function(key,arr){
+  //1.把arr转成json格式的字符串
+  let jsonStr = JSON.stringify(arr);
+  //2.存储本地
+  localStorage.setItem(key,jsonStr);
+}
+
+
+//获取数据
+kits.getLocalDataArray = function(key){
+  let jsonStr = localStorage.getItem(key);
+  let arr = JSON.parse(jsonStr);
+  arr = arr || [];
+  return arr;
+}
+
+
+//根据id修改数据
+kits.modifyLocalDataById = function(key ,id,data){
+  //1.先把本地的数据取出来
+  let arr = this.getLocalDataArray(key);
+  //6.假设一个返回值是false，表明没有修改成功
+  let flag = false;
+  //2.遍历数组arr
+  arr.forEach((e,i) => {
+    //3.判断每一项的id是否和我们传入的id一致
+    if (e.id == id){
+      //4.找到这项数据进行修改
+      arr[i] = data;
+      flag = true;
+    }
+  });
+  //5.存储修改后的数据
+  this.saveLocalDataArray(key,arr);
+  return flag;
+}
